@@ -146,6 +146,13 @@ The API is secured. You must log in to get an access token.
 
 * **Rate Limiting:** To prevent abuse, users are limited to **5 requests per minute**. Exceeding this returns a `429 Too Many Requests` error.
 * **Data Sources:** Relies on DuckDuckGo. Occasional timeouts may occur if the search engine is unreachable.
+* **Session Storage:** Currently uses **in-memory storage** for users and sessions (per project requirements). Restarting the server resets sessions.
+
+---
+
+## ⚠️ Disclaimer
+
+This tool is for **educational and informational purposes only**. The generated reports are created by an AI based on search results and do not constitute professional financial advice. Always verify data before making investment decisions.
 
 ```
 
