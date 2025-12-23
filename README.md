@@ -1,7 +1,3 @@
----
-
-## ✅ 1️⃣ `README.md` (COPY–PASTE)
-
 ```md
 # Trade Opportunities API
 
