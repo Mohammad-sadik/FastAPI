@@ -30,9 +30,7 @@ A high-performance FastAPI service that analyzes Indian market sectors to provid
 
 ```
 
-```text
-Total words: 508
-
+```
 ```text
 trade_api/
 ├── main.py            # Application entry point & routing
