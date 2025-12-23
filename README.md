@@ -1,7 +1,9 @@
-```
+```markdown
 # Trade Opportunities API 📈
 
 A high-performance FastAPI service that analyzes Indian market sectors to provide trade opportunity insights. It combines real-time web search (DuckDuckGo) with Generative AI (Google Gemini) to produce structured investment reports in Markdown format.
+
+> **Quick Start:** `pip install -r requirements.txt && uvicorn main:app --reload`
 
 ## 🚀 Features
 
@@ -16,60 +18,69 @@ A high-performance FastAPI service that analyzes Indian market sectors to provid
 
 ## 🛠️ Tech Stack
 
-* **Framework:** FastAPI
-* **Server:** Uvicorn
-* **AI Model:** Google Gemini (via `google-generativeai`)
-* **Search Engine:** DuckDuckGo (`duckduckgo-search`)
-* **Security:** OAuth2 with Password (Bearer), Passlib (Bcrypt), Python-Jose (JWT)
-* **Rate Limiting:** SlowAPI
+* **Core Framework:** FastAPI (Async/Await)
+* **Server:** Uvicorn (ASGI)
+* **AI Engine:** Google Gemini Pro (via `google-generativeai`)
+* **Data Source:** DuckDuckGo Search (Real-time market news)
+* **Security:** OAuth2 (JWT Tokens), BCrypt (Password Hashing)
+* **Performance:** SlowAPI (Rate Limiting), In-memory Caching
 
 ---
 
 ## 📂 Project Structure
 
-
-```
-
-```
 ```text
-trade_api/
-├── main.py            # Application entry point & routing
-├── config.py          # Configuration management
-├── models.py          # Pydantic data models
-├── auth.py            # JWT Authentication & Rate limiting logic
-├── services.py        # Business logic (Search & AI integration)
+.
+├── main.py            # Application entry point & wiring
+├── config.py          # Configuration & Environment variables
+├── models.py          # Pydantic models for request/response
+├── auth.py            # JWT Authentication & Session handling
+├── services.py        # Business logic (Search & AI analysis)
 ├── requirements.txt   # Project dependencies
+├── .env               # API Keys & Secrets (not committed)
 └── README.md          # Documentation
 
 ```
+
+---
 
 ## ⚡ Setup & Installation
 
 ### 1. Prerequisites
 
-* Python 3.9+
-* A Google Gemini API Key (Get it free [here](https://makersuite.google.com/app/apikey))
+* **Python 3.9+** installed on your system.
+* A **Google Gemini API Key**. (Get it free [here](https://makersuite.google.com/app/apikey)).
 
 ### 2. Install Dependencies
 
+It is recommended to use a virtual environment.
+
 ```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate it (Windows)
+venv\Scripts\activate
+
+# Activate it (Mac/Linux)
+source venv/bin/activate
+
+# Install libraries
 pip install -r requirements.txt
 
 ```
 
 ### 3. Environment Configuration
 
-You can set your API key as an environment variable or create a `.env` file in the root directory:
+You must set your API key for the application to work. You can do this via terminal command or a `.env` file.
 
-**Option A: Command Line (Linux/Mac)**
+**Option A: Command Line (Temporary)**
 
-```bash
-export GEMINI_API_KEY="your_actual_api_key_here"
+* **Windows:** `$env:GEMINI_API_KEY="your_api_key_here"`
+* **Mac/Linux:** `export GEMINI_API_KEY="your_api_key_here"`
 
-```
-
-**Option B: .env file**
-Create a file named `.env` and add:
+**Option B: .env file (Permanent)**
+Create a file named `.env` in the root folder and add:
 
 ```env
 GEMINI_API_KEY=your_actual_api_key_here
@@ -79,55 +90,52 @@ SECRET_KEY=your_super_secret_key_change_this
 
 ### 4. Run the Application
 
+Start the development server using Uvicorn:
+
 ```bash
 uvicorn main:app --reload
 
 ```
 
-The server will start at `http://127.0.0.1:8000`.
+The API will be live at `http://127.0.0.1:8000`.
 
 ---
 
 ## 📖 Usage Guide
 
-The easiest way to test the API is using the interactive Swagger UI at `http://127.0.0.1:8000/docs`.
+The easiest way to test the API is using the built-in Swagger UI.
 
-### Step 1: Authentication
+### Step 1: Access the Dashboard
 
-This API is secured. You must obtain a token to use the analysis endpoint.
+Open your web browser and navigate to:
+👉 **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**
 
-* **Endpoint:** `POST /token`
-* **Default Credentials (for testing):**
+### Step 2: Authentication
+
+The API is secured. You must log in to get an access token.
+
+1. Click the **Authorize** button (top right).
+2. Use these default credentials (for testing):
 * **Username:** `admin`
 * **Password:** `secret`
 
 
+3. Click **Authorize** then **Close**.
 
-*Response:*
+### Step 3: Generate a Report
 
-```json
-{
-  "access_token": "eyJhbGciOi...",
-  "token_type": "bearer"
-}
+1. Scroll down to the **`GET /analyze/{sector}`** endpoint.
+2. Click **Try it out**.
+3. Enter a sector name (e.g., `Renewable Energy` or `Textiles`).
+4. Click **Execute**.
 
-```
-
-### Step 2: Analyze a Sector
-
-Use the token from Step 1 to make an authenticated request.
-
-* **Endpoint:** `GET /analyze/{sector}`
-* **Header:** `Authorization: Bearer <your_access_token>`
-* **Example:** `GET /analyze/pharmaceuticals`
-
-*Response:*
+**Response Example:**
 
 ```json
 {
-  "sector": "pharmaceuticals",
+  "sector": "Renewable Energy",
   "timestamp": "2023-12-25 10:30:00",
-  "report_markdown": "# Pharmaceutical Sector Analysis\\n## Executive Summary\\n..."
+  "report_markdown": "# Renewable Energy Analysis\n## Executive Summary\nThe sector is seeing a 15% growth..."
 }
 
 ```
@@ -136,8 +144,9 @@ Use the token from Step 1 to make an authenticated request.
 
 ## 🛡️ Security & Limitations
 
-* **Rate Limiting:** Users are limited to **5 requests per minute**. Exceeding this will return `429 Too Many Requests`.
-* **Session Storage:** Currently uses in-memory storage for users and sessions (per project requirements). Restarting the server resets sessions.
-* **Search Reliability:** Relies on DuckDuckGo. If their API changes or limits requests, data collection may fail temporarily.
+* **Rate Limiting:** To prevent abuse, users are limited to **5 requests per minute**. Exceeding this returns a `429 Too Many Requests` error.
+* **Data Sources:** Relies on DuckDuckGo. Occasional timeouts may occur if the search engine is unreachable.
 
----
+```
+
+```
