@@ -1,152 +1,119 @@
+---
+
+## ✅ 1️⃣ `README.md` (COPY–PASTE)
+
+```md
 # Trade Opportunities API
 
-An AI-powered FastAPI service that analyzes Indian market sectors and returns
-structured trade opportunity reports in Markdown format.
+FastAPI-based service that analyzes Indian market sectors and returns
+AI-generated trade opportunity reports in Markdown format.
 
 ---
 
-## 📌 Overview
+## Overview
 
-This application provides a secure and rate-limited API that:
-- Accepts a sector name (e.g., pharmaceuticals, technology, agriculture)
-- Collects real-time market data using web search
-- Uses Google Gemini to generate AI-driven market analysis
-- Returns a structured Markdown report suitable for saving as a `.md` file
-
-The project follows clean architecture principles with a clear separation of
-routing, authentication, business logic, and configuration.
+- Accepts a sector name
+- Fetches real-time market news
+- Uses Google Gemini for analysis
+- Returns structured Markdown output
+- Uses JWT authentication and rate limiting
+- In-memory storage only (no database)
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- FastAPI – Backend framework
-- Google Gemini API – AI-based market analysis
-- DuckDuckGo Search – Real-time market news
-- JWT (OAuth2) – Authentication & session management
-- SlowAPI – Rate limiting
-- Passlib – Secure password hashing
-- Pydantic – Data validation
-- In-memory storage – No database used
+- FastAPI
+- Google Gemini API
+- DuckDuckGo Search
+- JWT (OAuth2)
+- SlowAPI (Rate Limiting)
+- Passlib (Password hashing)
+- Pydantic
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
-
+```
 
 trade_api/
-├── main.py        # Application entry point & routes
-├── auth.py        # Authentication & rate limiting
-├── services.py    # Data collection & AI analysis
-├── models.py      # Request/response schemas
-├── config.py      # Environment & settings
+├── main.py
+├── auth.py
+├── services.py
+├── models.py
+├── config.py
 ├── requirements.txt
 └── README.md
 
+```
 
+---
 
-## 🚀 API Endpoint
+## API Endpoint
 
-### Analyze Sector
+```
 
 GET /analyze/{sector}
 
+```
 
-### Example Request
-
+Example:
+```
 
 GET /analyze/pharmaceuticals
-Authorization: Bearer <access_token>
 
+```
 
-
-### Response
-Returns a structured Markdown report with:
+Returns a Markdown report with:
 - Executive Summary
 - Key Trends
 - Trade Opportunities
 - Risks
 - Outlook
 
+---
 
-## 🔐 Authentication
+## Authentication
 
-The API uses OAuth2 with JWT Bearer tokens.
-
-### Test Credentials
-
-
-Username: admin
-Password: secret
-
-
-
-### Get Access Token
-
+```
 
 POST /token
 
+```
 
+Test Credentials:
+```
 
-Use the returned token in the `Authorization` header.
+username: admin
+password: secret
 
+```
 
+---
 
-## ⏱️ Rate Limiting
+## Rate Limiting
 
 - 5 requests per minute per user/IP
-- Implemented using SlowAPI
-- Prevents API abuse
 
 ---
 
-## ⚠️ Error Handling
+## Setup & Run
 
-- Graceful handling of external API failures
-- Clear validation errors for invalid input
-- Fallback behavior if AI service is unavailable
-
----
-
-## ⚙️ Setup Instructions
-
-### 1. Create Virtual Environment
-
+```
 
 py -m venv venv
 venv\Scripts\activate
-
-```
-
-### 2. Install Dependencies
-```
-
 pip install -r requirements.txt
-
-```
-
-### 3. Configure Environment Variable
-```
-
-set GEMINI_API_KEY=your_gemini_api_key
-
-```
-
-*(Optional: Without this key, the API still returns raw market data.)*
-
-### 4. Run the Server
-```
-
+set GEMINI_API_KEY=your_api_key
 uvicorn main:app --reload
 
 ```
 
 ---
 
-## 📖 API Documentation
+## Swagger UI
 
-Open Swagger UI at:
 ```
 
 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
@@ -155,44 +122,58 @@ Open Swagger UI at:
 
 ---
 
-## ✅ Health Check
+## Health Check
 
 ```
 
 GET /health
 
-````
+```
 
 Response:
-```json
-{
-  "status": "active"
-}
-````
+```
+
+{"status":"active"}
+
+```
 
 ---
 
-## 📝 Notes
-
-* All data is stored in-memory as per assignment requirements
-* No database is used
-* Designed for clarity, security, and production readiness
-
----
-
-## 👤 Author
+## Author
 
 Mohammad Sadik
-
 ```
 
 ---
 
-If you want, I can also:
-- Make a **shorter GitHub-style README**
-- Customize it exactly to the **Appscrip assignment wording**
-- Add **screenshots + demo steps**
-- Help you explain this README in an interview
+## ✅ 2️⃣ RUN COMMANDS (COPY–PASTE)
 
-Just tell me 👌
+```bat
+py -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+set GEMINI_API_KEY=your_gemini_api_key
+uvicorn main:app --reload
 ```
+
+---
+
+## ✅ 3️⃣ TEST USING CURL (COPY–PASTE)
+
+### Get Token
+
+```bat
+curl -X POST http://127.0.0.1:8000/token ^
+ -H "Content-Type: application/x-www-form-urlencoded" ^
+ -d "username=admin&password=secret"
+```
+
+### Analyze Sector
+
+```bat
+curl -X GET http://127.0.0.1:8000/analyze/pharmaceuticals ^
+ -H "Authorization: Bearer YOUR_TOKEN_HERE"
+```
+
+---
+
