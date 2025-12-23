@@ -1,29 +1,29 @@
 ```markdown
 # Trade Opportunities API 📈
 
-A high-performance FastAPI service that analyzes Indian market sectors to provide trade opportunity insights. It combines real-time web search (DuckDuckGo) with Generative AI (Google Gemini) to produce structured investment reports in Markdown format.
+A **high-performance FastAPI service** that analyzes Indian market sectors to provide trade opportunity insights. It combines **real-time web search (DuckDuckGo)** with **Generative AI (Google Gemini)** to produce structured investment reports in Markdown format.
 
 > **Quick Start:** `pip install -r requirements.txt && uvicorn main:app --reload`
 
 ## 🚀 Features
 
-* **Sector Analysis:** Generates comprehensive reports on any given sector (e.g., "Pharmaceuticals", "Green Energy").
+* **Sector Analysis:** Generates comprehensive reports on any given sector (e.g., "**Pharmaceuticals**", "**Green Energy**").
 * **AI-Powered:** Uses **Google Gemini Pro** to synthesize market news into actionable insights.
 * **Real-time Data:** Fetches the latest market news using **DuckDuckGo Search** (no expensive SERP APIs required).
 * **Secure:** Implements **JWT Authentication** for endpoint protection.
 * **Robust:** Includes **Rate Limiting** (5 requests/minute) to prevent abuse.
-* **Architecture:** Clean, modular code structure separating Logic, Auth, and Routing.
+* **Architecture:** Clean, modular code structure separating **Logic**, **Auth**, and **Routing**.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Core Framework:** FastAPI (Async/Await)
-* **Server:** Uvicorn (ASGI)
-* **AI Engine:** Google Gemini Pro (via `google-generativeai`)
-* **Data Source:** DuckDuckGo Search (Real-time market news)
-* **Security:** OAuth2 (JWT Tokens), BCrypt (Password Hashing)
-* **Performance:** SlowAPI (Rate Limiting), In-memory Caching
+* **Core Framework:** **FastAPI** (Async/Await)
+* **Server:** **Uvicorn** (ASGI)
+* **AI Engine:** **Google Gemini Pro** (via `google-generativeai`)
+* **Data Source:** **DuckDuckGo Search** (Real-time market news)
+* **Security:** **OAuth2** (JWT Tokens), **BCrypt** (Password Hashing)
+* **Performance:** **SlowAPI** (Rate Limiting), **In-memory Caching**
 
 ---
 
