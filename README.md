@@ -1,5 +1,4 @@
-```python
-markdown_text = """
+```
 # Trade Opportunities API 📈
 
 A high-performance FastAPI service that analyzes Indian market sectors to provide trade opportunity insights. It combines real-time web search (DuckDuckGo) with Generative AI (Google Gemini) to produce structured investment reports in Markdown format.
