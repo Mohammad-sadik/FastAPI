@@ -1,67 +1,47 @@
-```md
-# Trade Opportunities API
-
-FastAPI-based service that analyzes Indian market sectors and returns
-AI-generated trade opportunity reports in Markdown format.
+# Trade Opportunities API – Appscrip Assignment
 
 ---
 
-## Overview
-
-- Accepts a sector name
-- Fetches real-time market news
-- Uses Google Gemini for analysis
-- Returns structured Markdown output
-- Uses JWT authentication and rate limiting
-- In-memory storage only (no database)
+## Project Overview
+- FastAPI service to analyze market data
+- Provides trade opportunity insights for Indian sectors
+- Generates structured Markdown market analysis reports
+- Designed as per Appscrip developer task requirements
 
 ---
 
-## Tech Stack
-
-- FastAPI
-- Google Gemini API
-- DuckDuckGo Search
-- JWT (OAuth2)
-- SlowAPI (Rate Limiting)
-- Passlib (Password hashing)
-- Pydantic
-
----
-
-## Project Structure
-
-```
-
-trade_api/
-├── main.py
-├── auth.py
-├── services.py
-├── models.py
-├── config.py
-├── requirements.txt
-└── README.md
-
-```
+## Core Requirement
+- Single API endpoint
+- Accepts a sector name as input
+- Example sectors:
+  - pharmaceuticals
+  - technology
+  - agriculture
+- Returns structured Markdown analysis report
+- Focused on current trade opportunities in India
 
 ---
 
-## API Endpoint
+## API Specification
+- Endpoint: GET /analyze/{sector}
+- Example request:
+  - /analyze/pharmaceuticals
+- Response format:
+  - Structured Markdown report
+  - Can be saved as a `.md` file
 
-```
+---
 
-GET /analyze/{sector}
+## Core Workflow
+- Accept sector name as input
+- Search for current market data and news
+- Analyze collected information using AI
+- Generate structured Markdown report
+- Apply authentication, validation, and rate limiting
 
-```
+---
 
-Example:
-```
-
-GET /analyze/pharmaceuticals
-
-```
-
-Returns a Markdown report with:
+## Report Structure
 - Executive Summary
 - Key Trends
 - Trade Opportunities
@@ -70,106 +50,109 @@ Returns a Markdown report with:
 
 ---
 
-## Authentication
-
-```
-
-POST /token
-
-```
-
-Test Credentials:
-```
-
-username: admin
-password: secret
-
-```
+## Technical Requirements Implemented
+- FastAPI backend
+- Proper async handling
+- Input validation
+- Session management using JWT
+- Rate limiting per user/IP
+- Secure authentication
+- Graceful error handling
 
 ---
 
-## Rate Limiting
-
-- 5 requests per minute per user/IP
-
----
-
-## Setup & Run
-
-```
-
-py -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-set GEMINI_API_KEY=your_api_key
-uvicorn main:app --reload
-
-```
+## AI & Data Sources
+- Google Gemini API for market analysis
+- DuckDuckGo Search for real-time market news
+- No paid APIs required
+- Graceful fallback if AI service is unavailable
 
 ---
 
-## Swagger UI
+## Security
+- JWT-based authentication
+- OAuth2 password flow
+- Protected core endpoint
+- Rate limiting to prevent abuse
+- Input validation for sector names
 
-```
+---
 
-[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+## Storage
+- In-memory storage only
+- No database used
+- Users and sessions stored in memory
+- Complies with assignment constraints
 
-```
+---
+
+## System Architecture
+- Clean separation of concerns
+- API layer for routing
+- Service layer for data collection and AI analysis
+- Authentication layer for security and rate limiting
+- Configuration isolated from business logic
+
+---
+
+## Project Structure
+- trade_api/
+  - main.py – application entry point and routing
+  - auth.py – authentication, session handling, rate limiting
+  - services.py – market data collection and AI analysis
+  - models.py – request and response models
+  - config.py – environment and settings
+  - requirements.txt
+  - README.md
+
+---
+
+## Setup Instructions
+- Create virtual environment:
+  - py -m venv venv
+  - venv\Scripts\activate
+- Install dependencies:
+  - pip install -r requirements.txt
+- Configure environment variable (optional):
+  - set GEMINI_API_KEY=your_api_key
+- Run application:
+  - uvicorn main:app --reload
+
+---
+
+## API Documentation
+- Swagger UI available at:
+  - http://127.0.0.1:8000/docs
+- Interactive testing supported
 
 ---
 
 ## Health Check
+- Endpoint: GET /health
+- Used to verify service availability
 
-```
+---
 
-GET /health
+## Error Handling
+- Graceful handling of external API failures
+- Clear error messages for invalid input
+- Safe fallback when AI analysis is unavailable
 
-```
+---
 
-Response:
-```
+## Success Criteria Coverage
+- API accepts sector names and returns Markdown reports
+- Reports contain relevant market information
+- Security measures prevent abuse
+- System handles failures gracefully
+- Code is clean, modular, and well-organized
 
-{"status":"active"}
+---
 
-```
+## Time Constraint
+- Designed and implemented within 0–1 day as specified
 
 ---
 
 ## Author
-
-Mohammad Sadik
-```
-
----
-
-## ✅ 2️⃣ RUN COMMANDS (COPY–PASTE)
-
-```bat
-py -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-set GEMINI_API_KEY=your_gemini_api_key
-uvicorn main:app --reload
-```
-
----
-
-## ✅ 3️⃣ TEST USING CURL (COPY–PASTE)
-
-### Get Token
-
-```bat
-curl -X POST http://127.0.0.1:8000/token ^
- -H "Content-Type: application/x-www-form-urlencoded" ^
- -d "username=admin&password=secret"
-```
-
-### Analyze Sector
-
-```bat
-curl -X GET http://127.0.0.1:8000/analyze/pharmaceuticals ^
- -H "Authorization: Bearer YOUR_TOKEN_HERE"
-```
-
----
-
+- Mohammad Sadik
